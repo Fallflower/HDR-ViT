@@ -1,5 +1,4 @@
 from train import train
-from models.model_info import export_model
 from assistant import Options, HelpSave
 
 
@@ -12,7 +11,4 @@ def main(model):
 
 
 if __name__ == '__main__':
-    # main("VGG19")
-    # main("DenseNet121")
-    # main("VisionTransformer")
-    export_model("DenseNet121")
+    main("VisionTransformer")

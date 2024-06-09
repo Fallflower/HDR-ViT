@@ -14,22 +14,16 @@ from progressbar import ProgressBar, Percentage, Bar, Timer, ETA, FileTransferSp
 def train(opt: argparse.Namespace, saver):
 
     trainDataLoader = get_dataloader(
-        batch_size=opt.batch_size,
-        shuffle=True,
+        data_file='train-images-idx3-ubyte.gz',
+        label_file='train-labels-idx1-ubyte.gz',
         mode='train',
-        num_classes=opt.num_classes,
-        num_images=opt.num_images,
-        ds_enhance=opt.ds_enhance,
-        dl_num_worker=opt.tr_dl_num_worker
+        opt=opt
     )
     testDataLoader = get_dataloader(
-        batch_size=opt.batch_size,
-        shuffle=False,
+        data_file='t10k-images-idx3-ubyte.gz',
+        label_file='t10k-labels-idx1-ubyte.gz',
         mode='test',
-        num_classes=opt.num_classes,
-        num_images=opt.num_images,
-        ds_enhance=False,
-        dl_num_worker=opt.te_dl_num_worker
+        opt=opt
     )
 
     set_model = model_dic[opt.model]

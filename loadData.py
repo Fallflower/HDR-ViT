@@ -16,7 +16,7 @@ class LoadDataset(dataset.Dataset):
         self.transform = transform
 
     def __getitem__(self, i):
-        img, target = self.x[i].copy(), self.y[i]
+        img, target = self.x[i].transpose(1, 2, 0).copy(), self.y[i]
         if self.transform:
             img = self.transform(img)
         return img, target
@@ -39,22 +39,25 @@ def get_train_trans():
     ])
 
 
-def get_dataloader(mode, label_file, opt: argparse.Namespace):
+def get_dataloader(mode, data_file, label_file, opt: argparse.Namespace):
     if mode == 'train':
-        dataset = LoadDataset(
-            label_file=label_file,
-            transform=get_train_trans()
-        )
         return dataloader.DataLoader(
-            dataset=dataset,
+            dataset=LoadDataset(
+                data_file=data_file,
+                label_file=label_file,
+                num_images=opt.num_images,
+                transform=get_train_trans()
+            ),
             batch_size=opt.batch_size,
             shuffle=True,
             num_workers=opt.tr_dl_num_worker
-        )#, dataset.label_statistics
+        )
     elif mode == 'test':
         return dataloader.DataLoader(
             dataset=LoadDataset(
+                data_file=data_file,
                 label_file=label_file,
+                num_images=opt.num_images,
                 transform=get_test_trans()
             ),
             batch_size=opt.batch_size,
