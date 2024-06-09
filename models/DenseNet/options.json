@@ -1,0 +1,19 @@
+{
+  "model": "DenseNet",
+  "batch_size": 128,
+  "num_images": -1,
+  "ds_enhance": false,
+  "epochs": 20,
+  "learning_rate": 0.001,
+  "lr_gamma": 0.97,
+  "growth_rate": 32,
+  "block_config": [12, 24, 8],
+  "num_init_features": 64,
+  "bn_size": 4,
+  "drop_rate": 0,
+  "num_classes": 10,
+  "tr_dl_num_worker": 0,
+  "te_dl_num_worker": 0,
+  "show": true,
+  "device": "cuda:0"
+}
